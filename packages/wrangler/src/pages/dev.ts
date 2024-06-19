@@ -239,7 +239,7 @@ export function Options(yargs: CommonYargsArgv) {
 			},
 			"show-interactive-dev-session": {
 				describe:
-					"Use the experimental DevEnv instantiation (unified across wrangler dev and unstable_dev)",
+					"Show interactive dev session (defaults to true if the terminal supports interactivity)",
 				type: "boolean",
 			},
 			"experimental-dev-env": {
@@ -247,13 +247,6 @@ export function Options(yargs: CommonYargsArgv) {
 				type: "boolean",
 				describe:
 					"Use the experimental DevEnv instantiation (unified across wrangler dev and unstable_dev)",
-				default: false,
-			},
-			"experimental-registry": {
-				alias: ["x-registry"],
-				type: "boolean",
-				describe:
-					"Use the experimental file based dev registry for multi-worker development",
 				default: false,
 			},
 		});

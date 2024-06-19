@@ -694,7 +694,6 @@ export const Handler = async (args: PagesDevArguments) => {
 			showInteractiveDevSession: args.showInteractiveDevSession,
 			testMode: false,
 			watch: true,
-			fileBasedRegistry: args.experimentalRegistry,
 			devEnv: args.experimentalDevEnv,
 		},
 	});

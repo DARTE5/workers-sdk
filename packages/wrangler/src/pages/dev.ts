@@ -239,8 +239,22 @@ export function Options(yargs: CommonYargsArgv) {
 			},
 			"show-interactive-dev-session": {
 				describe:
-					"Show interactive dev session (defaults to true if the terminal supports interactivity)",
+					"Use the experimental DevEnv instantiation (unified across wrangler dev and unstable_dev)",
 				type: "boolean",
+			},
+			"experimental-dev-env": {
+				alias: ["x-dev-env"],
+				type: "boolean",
+				describe:
+					"Use the experimental DevEnv instantiation (unified across wrangler dev and unstable_dev)",
+				default: false,
+			},
+			"experimental-registry": {
+				alias: ["x-registry"],
+				type: "boolean",
+				describe:
+					"Use the experimental file based dev registry for multi-worker development",
+				default: false,
 			},
 		});
 }
@@ -680,6 +694,8 @@ export const Handler = async (args: PagesDevArguments) => {
 			showInteractiveDevSession: args.showInteractiveDevSession,
 			testMode: false,
 			watch: true,
+			fileBasedRegistry: args.experimentalRegistry,
+			devEnv: args.experimentalDevEnv,
 		},
 	});
 	await metrics.sendMetricsEvent("run pages dev");

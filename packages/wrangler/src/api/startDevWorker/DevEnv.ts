@@ -8,7 +8,7 @@ import { ProxyController } from "./ProxyController";
 import { RemoteRuntimeController } from "./RemoteRuntimeController";
 import type { Controller, RuntimeController } from "./BaseController";
 import type { ErrorEvent } from "./events";
-import type { DevWorker, StartDevWorkerOptions } from "./types";
+import type { StartDevWorkerOptions, Worker } from "./types";
 
 export class DevEnv extends EventEmitter {
 	config: ConfigController;
@@ -16,10 +16,10 @@ export class DevEnv extends EventEmitter {
 	runtimes: RuntimeController[];
 	proxy: ProxyController;
 
-	startWorker(_options: StartDevWorkerOptions): DevWorker {
+	startWorker(options: StartDevWorkerOptions): Worker {
 		const worker = createWorkerObject(this);
-		// TODO: uncomment this when dev-env fixture tests are no longer faked
-		// this.config.set(options);
+
+		this.config.set(options);
 
 		return worker;
 	}

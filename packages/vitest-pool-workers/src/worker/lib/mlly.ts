@@ -16,7 +16,7 @@ export function interopDefault(sourceModule: any): any {
 	for (const key in sourceModule) {
 		if (key === "default") {
 			try {
-				if (!(key in newModule)) {
+				if (!(key in (newModule as Record<string, unknown>))) {
 					Object.defineProperty(newModule, key, {
 						enumerable: false,
 						configurable: false,
@@ -28,12 +28,12 @@ export function interopDefault(sourceModule: any): any {
 			} catch {}
 		} else {
 			try {
-				if (!(key in newModule)) {
+				if (!(key in (newModule as Record<string, unknown>))) {
 					Object.defineProperty(newModule, key, {
 						enumerable: true,
 						configurable: true,
 						get() {
-							return sourceModule[key];
+							return (sourceModule as Record<string, unknown>)[key];
 						},
 					});
 				}

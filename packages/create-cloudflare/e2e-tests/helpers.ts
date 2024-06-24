@@ -309,6 +309,8 @@ export const testDeploymentCommitMessage = async (
 			},
 		);
 
+		console.log(`TEST ${framework}`);
+
 		const result = (
 			(await response.json()) as {
 				result: {

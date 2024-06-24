@@ -10,7 +10,6 @@ import { validatePagesConfig } from "./validation-pages";
 import type { CfWorkerInit } from "../deployment-bundle/worker";
 import type { CommonYargsOptions } from "../yargs-types";
 import type { Config, OnlyCamelCase, RawConfig } from "./config";
-import type { NormalizeAndValidateConfigArgs } from "./validation";
 
 export type {
 	Config,
@@ -25,30 +24,30 @@ export type {
 	ConfigModuleRuleType,
 } from "./environment";
 
-type ReadConfigCommandArgs = NormalizeAndValidateConfigArgs & {
-	experimentalJsonConfig: boolean | undefined;
-};
+type ReadConfigCommandArgs<CommandArgs> = CommandArgs &
+	Pick<OnlyCamelCase<CommonYargsOptions>, "experimentalJsonConfig"> &
+	Partial<Pick<OnlyCamelCase<CommonYargsOptions>, "env">>;
 
 /**
  * Get the Wrangler configuration; read it from the give `configPath` if available.
  */
-export function readConfig(
+export function readConfig<CommandArgs>(
 	configPath: string | undefined,
 	// Include command specific args as well as the wrangler global flags
-	args: ReadConfigCommandArgs,
+	args: ReadConfigCommandArgs<CommandArgs>,
 	requirePagesConfig: true
 ): Omit<Config, "pages_build_output_dir"> & { pages_build_output_dir: string };
-export function readConfig(
+export function readConfig<CommandArgs>(
 	configPath: string | undefined,
 	// Include command specific args as well as the wrangler global flags
-	args: ReadConfigCommandArgs,
+	args: ReadConfigCommandArgs<CommandArgs>,
 	requirePagesConfig?: boolean,
 	hideWarnings?: boolean
 ): Config;
-export function readConfig(
+export function readConfig<CommandArgs>(
 	configPath: string | undefined,
 	// Include command specific args as well as the wrangler global flags
-	args: ReadConfigCommandArgs,
+	args: ReadConfigCommandArgs<CommandArgs>,
 	requirePagesConfig?: boolean,
 	hideWarnings: boolean = false
 ): Config {
